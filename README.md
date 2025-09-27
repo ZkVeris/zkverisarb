@@ -145,4 +145,4 @@ journalctl -u zkverisarb -f
 
 
 ## 📜 License
-MIT © 2025 zkveris
+MIT © 2025 ZkVeris
