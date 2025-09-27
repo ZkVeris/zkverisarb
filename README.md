@@ -21,7 +21,6 @@ It monitors multiple tokens you whitelist, finds price gaps via the **Jupiter ag
 - **DRY_RUN** mode — log opportunities without trading
 - **24/7 ready** — run with PM2 or systemd
 
-
 ## 📂 Repository Structure
 
 zkverisarb/  
@@ -42,7 +41,6 @@ zkverisarb/
 └── service/  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── zkverisarb.service  
 
----
 
 ## 🛠 Installation Guide
 
@@ -52,7 +50,6 @@ zkverisarb/
 - Solana RPC (private/paid recommended)
 - Fresh Solana wallet (base58 secret, small funds)
 
----
 
 ### 1. Install prerequisites
 ```bash
