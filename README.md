@@ -22,26 +22,6 @@ It monitors multiple tokens you whitelist, finds price gaps via the **Jupiter ag
 - **DRY_RUN** mode — log opportunities without trading
 - **24/7 ready** — run with PM2 or systemd
 
-## 📂 Repository Structure
-
-zkverisarb/
-├── README.md # This file
-├── LICENSE # MIT open source license
-├── .gitignore
-├── .env.example # Copy to .env and fill in
-├── package.json # Node.js project file
-└── src/
-├── index.js # Main loop: scan → simulate → (optional) trade
-├── config.js # Loads & validates .env
-├── dexScanner.js # Round-trip quotes via Jupiter
-├── jupiter.js # Jupiter API helpers
-├── risk.js # Profitability checks
-└── utils.js # Helpers
-├── scripts/
-│ └── keypair-json-to-b58.js # Convert Solana keypair JSON → base58 secret
-└── service/
-└── zkverisarb.service # systemd unit (optional)
-
 ## 🛠 Installation Guide
 
 ### 0. Requirements
@@ -58,3 +38,63 @@ sudo apt update && sudo apt upgrade -y
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt install -y nodejs git build-essential
 node -v && npm -v && git --version
+
+3. Wallet setup
+
+Generate wallet & convert JSON → base58:
+
+sh -c "$(curl -sSfL https://release.solana.com/stable/install)"
+export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
+
+mkdir -p ~/.config/solana
+solana-keygen new --outfile ~/.config/solana/arb.json
+solana address
+
+node scripts/keypair-json-to-b58.js ~/.config/solana/arb.json
+
+
+Copy the base58 output into .env.
+
+4. Configure .env
+cp .env.example .env
+nano .env
+
+
+Example:
+
+RPC_URL=https://your-rpc:8899
+WALLET_SECRET_KEY_B58=BASE58_SECRET
+TOKENS=DoggZcWcYNVnDsFHhU5QbNEB2c9PzpjzwgyYMvZx7feY
+BASE_MINT=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1
+NOTIONAL_PER_TRADE=250
+MIN_PROFIT_BPS=30
+MAX_SLIPPAGE_BPS=50
+EXECUTION_MODE=fastest
+PRIORITY_FEE_LAMPORTS=
+LOOP_INTERVAL_MS=800
+JUP_API_BASE=https://quote-api.jup.ag/v6
+DRY_RUN=true
+
+5. Run the bot
+npm start
+
+
+Logs:
+
+[zkverisarb] Watching 2 tokens | mode=fastest | minProfit=0.30% | dryRun=true
+[WIF] spread=0.46% ✓ DRY_RUN=true (not sending trade)
+
+6. Keep alive (systemd)
+sudo cp service/zkverisarb.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable zkverisarb
+sudo systemctl start zkverisarb
+journalctl -u zkverisarb -f
+
+Security
+
+Always use fresh wallets
+
+Never commit .env
+
+Prefer private RPC
