@@ -39,7 +39,7 @@ curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt install -y nodejs git build-essential
 node -v && npm -v && git --version
 
-3. Wallet setup
+### 3. Wallet setup
 
 Generate wallet & convert JSON → base58:
 
