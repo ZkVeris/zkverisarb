@@ -10,7 +10,6 @@ It monitors multiple tokens you whitelist, finds price gaps via the **Jupiter ag
 
 ⚠️ **Disclaimer**: Educational use only. No profit guarantees. Use a fresh wallet with limited funds. Never commit secrets.
 
----
 
 ## ✨ Features
 - **Multi-token monitoring** (manual whitelist of SPL mints)
@@ -22,7 +21,6 @@ It monitors multiple tokens you whitelist, finds price gaps via the **Jupiter ag
 - **DRY_RUN** mode — log opportunities without trading
 - **24/7 ready** — run with PM2 or systemd
 
----
 
 ## 📂 Repository Structure
 
@@ -148,7 +146,6 @@ journalctl -u zkverisarb -f
 - Never commit `.env`  
 - Prefer private RPC  
 
----
 
 ## 📜 License
 MIT © 2025 zkveris
