@@ -39,6 +39,8 @@ curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt install -y nodejs git build-essential
 node -v && npm -v && git --version
 
+===
+
 ### 3. Wallet setup
 
 Generate wallet & convert JSON → base58:
@@ -52,6 +54,9 @@ solana address
 
 node scripts/keypair-json-to-b58.js ~/.config/solana/arb.json
 
+===
+
+### 4. Configure .env
 
 Copy the base58 output into .env.
 
@@ -75,7 +80,9 @@ LOOP_INTERVAL_MS=800
 JUP_API_BASE=https://quote-api.jup.ag/v6
 DRY_RUN=true
 
-5. Run the bot
+---
+
+### 5. Run the bot
 npm start
 
 
@@ -91,10 +98,14 @@ sudo systemctl enable zkverisarb
 sudo systemctl start zkverisarb
 journalctl -u zkverisarb -f
 
-Security
+---
+
+### 6. Security
 
 Always use fresh wallets
 
 Never commit .env
+
+---
 
 Prefer private RPC
