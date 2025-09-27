@@ -26,23 +26,23 @@ It monitors multiple tokens you whitelist, finds price gaps via the **Jupiter ag
 
 ## 📂 Repository Structure
 
-zkverisarb/
-├── README.md
-├── LICENSE
-├── .gitignore
-├── .env.example
-├── package.json
-└── src/
-   ├── index.js
-   ├── config.js
-   ├── dexScanner.js
-   ├── jupiter.js
-   ├── risk.js
-   └── utils.js
-├── scripts/
-│   └── keypair-json-to-b58.js
-└── service/
-    └── zkverisarb.service
+zkverisarb/  
+├── README.md  
+├── LICENSE  
+├── .gitignore  
+├── .env.example  
+├── package.json  
+└── src/  
+   ├── index.js  
+   ├── config.js  
+   ├── dexScanner.js  
+   ├── jupiter.js  
+   ├── risk.js  
+   └── utils.js  
+├── scripts/  
+│   └── keypair-json-to-b58.js  
+└── service/  
+    └── zkverisarb.service  
 
 ---
 
