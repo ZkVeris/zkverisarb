@@ -57,21 +57,25 @@ zkverisarb/
 ---
 
 ### 1. Install prerequisites
+```bash
 sudo apt update && sudo apt upgrade -y
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt install -y nodejs git build-essential
 node -v && npm -v && git --version
 
----
+```
 
 ### 2. Clone & install
+```bash
 git clone https://github.com/zkveris/zkverisarb.git
 cd zkverisarb
 npm install
 
----
+```
 
 ### 3. Wallet setup
+
+```bash
 sh -c "$(curl -sSfL https://release.solana.com/stable/install)"
 export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
 
@@ -83,9 +87,10 @@ node scripts/keypair-json-to-b58.js ~/.config/solana/arb.json
 
 Copy the base58 output into `.env`.
 
----
+```
 
 ### 4. Configure `.env`
+```bash
 cp .env.example .env
 nano .env
 
@@ -103,27 +108,32 @@ LOOP_INTERVAL_MS=800
 JUP_API_BASE=https://quote-api.jup.ag/v6
 DRY_RUN=true
 
----
+```
 
 ### 5. Run the bot
+```bash
 npm start
 
 Example logs:
 [zkverisarb] Watching 2 tokens | mode=fastest | minProfit=0.30% | dryRun=true
 [WIF] spread=0.46% ✓ DRY_RUN=true (not sending trade)
 
----
+```
 
 ### 6. Keep alive (systemd)
+
+```bash
 sudo cp service/zkverisarb.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable zkverisarb
 sudo systemctl start zkverisarb
 journalctl -u zkverisarb -f
 
----
+```
 
 ## 🔍 Troubleshooting
+
+```bash
 
 - “WALLET_SECRET_KEY_B58 required” → set it in `.env`.  
 - “TOKENS list is empty” → add at least one mint.  
@@ -131,7 +141,7 @@ journalctl -u zkverisarb -f
 - No trades happen → keep `DRY_RUN=true` to observe; lower `MIN_PROFIT_BPS` when ready.  
 - Few opportunities → add more tokens; better RPC; use `fastest` mode.
 
----
+```
 
 ## 🛡 Security
 - Always use fresh wallets  
