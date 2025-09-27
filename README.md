@@ -3,7 +3,7 @@
 **zkverisarb** is a high-frequency **Solana DEX arbitrage bot**.  
 It monitors multiple tokens you whitelist, finds price gaps via the **Jupiter aggregator** across major Solana DEXs (Raydium, Orca, Phoenix, Lifinity, Meteora, …), simulates **round-trip** trades (after slippage & fees), and executes only if profit is guaranteed.
 
-- Author / Contact: [Twitter/X](https://x.com/ZkVeris) • [Telegram](https://t.me/ZkVeris)  
+- Author / Contact: [Twitter/X](https://x.com/zkveris) • [Telegram](https://t.me/ZkVeris)  
 - Target OS: **Ubuntu 24.04 LTS**  
 - Engine: **Node.js 18+**, **Solana Web3**, **Jupiter v6**  
 - Safe testing: **DRY_RUN=true** prevents any trades (observe only).
@@ -22,6 +22,30 @@ It monitors multiple tokens you whitelist, finds price gaps via the **Jupiter ag
 - **DRY_RUN** mode — log opportunities without trading
 - **24/7 ready** — run with PM2 or systemd
 
+---
+
+## 📂 Repository Structure
+
+zkverisarb/
+├── README.md
+├── LICENSE
+├── .gitignore
+├── .env.example
+├── package.json
+└── src/
+   ├── index.js
+   ├── config.js
+   ├── dexScanner.js
+   ├── jupiter.js
+   ├── risk.js
+   └── utils.js
+├── scripts/
+│   └── keypair-json-to-b58.js
+└── service/
+    └── zkverisarb.service
+
+---
+
 ## 🛠 Installation Guide
 
 ### 0. Requirements
@@ -33,18 +57,21 @@ It monitors multiple tokens you whitelist, finds price gaps via the **Jupiter ag
 ---
 
 ### 1. Install prerequisites
-```bash
 sudo apt update && sudo apt upgrade -y
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt install -y nodejs git build-essential
 node -v && npm -v && git --version
 
-===
+---
+
+### 2. Clone & install
+git clone https://github.com/zkveris/zkverisarb.git
+cd zkverisarb
+npm install
+
+---
 
 ### 3. Wallet setup
-```bash
-Generate wallet & convert JSON → base58:
-
 sh -c "$(curl -sSfL https://release.solana.com/stable/install)"
 export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
 
@@ -54,19 +81,15 @@ solana address
 
 node scripts/keypair-json-to-b58.js ~/.config/solana/arb.json
 
-===
+Copy the base58 output into `.env`.
 
-### 4. Configure .env
-```bash
-Copy the base58 output into .env.
+---
 
-4. Configure .env
+### 4. Configure `.env`
 cp .env.example .env
 nano .env
 
-
-Example:
-
+Example `.env`:
 RPC_URL=https://your-rpc:8899
 WALLET_SECRET_KEY_B58=BASE58_SECRET
 TOKENS=DoggZcWcYNVnDsFHhU5QbNEB2c9PzpjzwgyYMvZx7feY
@@ -83,16 +106,15 @@ DRY_RUN=true
 ---
 
 ### 5. Run the bot
-```bash
 npm start
 
-
-Logs:
-
+Example logs:
 [zkverisarb] Watching 2 tokens | mode=fastest | minProfit=0.30% | dryRun=true
 [WIF] spread=0.46% ✓ DRY_RUN=true (not sending trade)
 
-6. Keep alive (systemd)
+---
+
+### 6. Keep alive (systemd)
 sudo cp service/zkverisarb.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable zkverisarb
@@ -101,12 +123,22 @@ journalctl -u zkverisarb -f
 
 ---
 
-### 6. Security
+## 🔍 Troubleshooting
 
-Always use fresh wallets
-
-Never commit .env
+- “WALLET_SECRET_KEY_B58 required” → set it in `.env`.  
+- “TOKENS list is empty” → add at least one mint.  
+- Jupiter quote failed → network hiccup or token not tradable; retry; use faster RPC.  
+- No trades happen → keep `DRY_RUN=true` to observe; lower `MIN_PROFIT_BPS` when ready.  
+- Few opportunities → add more tokens; better RPC; use `fastest` mode.
 
 ---
 
-Prefer private RPC
+## 🛡 Security
+- Always use fresh wallets  
+- Never commit `.env`  
+- Prefer private RPC  
+
+---
+
+## 📜 License
+MIT © 2025 zkveris
