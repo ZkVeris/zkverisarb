@@ -42,7 +42,7 @@ node -v && npm -v && git --version
 ===
 
 ### 3. Wallet setup
-
+```bash
 Generate wallet & convert JSON → base58:
 
 sh -c "$(curl -sSfL https://release.solana.com/stable/install)"
@@ -57,7 +57,7 @@ node scripts/keypair-json-to-b58.js ~/.config/solana/arb.json
 ===
 
 ### 4. Configure .env
-
+```bash
 Copy the base58 output into .env.
 
 4. Configure .env
@@ -83,6 +83,7 @@ DRY_RUN=true
 ---
 
 ### 5. Run the bot
+```bash
 npm start
 
 
