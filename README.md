@@ -33,16 +33,16 @@ zkverisarb/
 ├── .env.example  
 ├── package.json  
 └── src/  
-   ├── index.js  
-   ├── config.js  
-   ├── dexScanner.js  
-   ├── jupiter.js  
-   ├── risk.js  
-   └── utils.js  
+     ├── index.js  
+     ├── config.js  
+     ├── dexScanner.js  
+     ├── jupiter.js  
+     ├── risk.js  
+     └── utils.js  
 ├── scripts/  
-│   └── keypair-json-to-b58.js  
+  │   └── keypair-json-to-b58.js  
 └── service/  
-    └── zkverisarb.service  
+      └── zkverisarb.service  
 
 ---
 
